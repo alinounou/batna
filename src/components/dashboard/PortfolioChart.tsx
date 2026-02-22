@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   AreaChart,
@@ -16,18 +16,23 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+// Seeded random for consistent SSR
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
 const generatePortfolioData = (days: number) => {
   const data = [];
-  let balance = 40000;
-  const now = new Date();
-
+  let balance = 45000;
+  
   for (let i = days; i >= 0; i--) {
-    const date = new Date(now);
+    const date = new Date();
     date.setDate(date.getDate() - i);
     
-    // Add some realistic variance
-    const change = (Math.random() - 0.45) * 500;
-    balance = Math.max(35000, Math.min(55000, balance + change));
+    const seed = days - i + 1;
+    const change = (seededRandom(seed) - 0.45) * 400;
+    balance = Math.max(38000, Math.min(52000, balance + change));
     
     data.push({
       date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -78,6 +83,16 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 
 export default function PortfolioChart() {
   const [selectedTimeframe, setSelectedTimeframe] = useState(timeframes[1]);
+  const [mounted, setMounted] = useState(false);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      requestAnimationFrame(() => setMounted(true));
+    }
+  }, []);
+
   const data = useMemo(() => generatePortfolioData(selectedTimeframe.days), [selectedTimeframe.days]);
 
   const currentValue = data[data.length - 1]?.value || 0;
@@ -97,6 +112,21 @@ export default function PortfolioChart() {
     }
     return (maxDD * 100).toFixed(2);
   }, [data]);
+
+  if (!mounted) {
+    return (
+      <Card className="glass-card">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-lg">Portfolio Performance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[300px] flex items-center justify-center">
+            <div className="animate-pulse text-muted-foreground">Loading chart...</div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="glass-card">

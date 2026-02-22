@@ -19,10 +19,12 @@ import StatsCards from '@/components/dashboard/StatsCards';
 import PortfolioChart from '@/components/dashboard/PortfolioChart';
 import RecentTrades from '@/components/dashboard/RecentTrades';
 import TradingChart from '@/components/charts/TradingChart';
+import XAUUSDChart from '@/components/charts/XAUUSDChart';
 import AIAssistant from '@/components/ai/AIAssistant';
 import CalculatorGrid from '@/components/calculators/CalculatorGrid';
 import TradeJournal from '@/components/journal/TradeJournal';
 import AcademyPromo from '@/components/academy/AcademyPromo';
+import GeminiChatbot from '@/components/chatbot/GeminiChatbot';
 import { Button } from '@/components/ui/button';
 
 const sections = [
@@ -142,6 +144,13 @@ export default function Home() {
               <BarChart3 className="w-6 h-6 text-blue-400" />
               Advanced Charts
             </h2>
+            
+            {/* XAUUSD Gold Chart - 10 Years */}
+            <div className="mb-6">
+              <XAUUSDChart />
+            </div>
+            
+            {/* Trading Chart */}
             <TradingChart />
           </motion.div>
         </section>
@@ -270,6 +279,9 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
+      {/* Gemini AI Chatbot */}
+      <GeminiChatbot />
+
       {/* Scroll to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
@@ -277,7 +289,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-8 right-8 z-50"
+            className="fixed bottom-8 left-8 z-40"
           >
             <Button
               onClick={scrollToTop}
