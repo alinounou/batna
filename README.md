@@ -1,141 +1,181 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# Batna - Trading Intelligence Platform
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+<div align="center">
 
-## ✨ Technology Stack
+![Batna Logo](./docs/images/logo.png)
 
-This scaffold provides a robust foundation built with:
+# Batna | بتنة
+### AI Trading Intelligence Platform
+### منصة ذكاء التداول بالذكاء الاصطناعي
 
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+[**🚀 Live Demo**](https://batna.trading) | [**📚 Documentation**](./docs) | [**🎓 Academy**](https://infinityalgoacademy.net/)
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+</div>
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
+---
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+## 🌟 Features
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+### 📊 22+ Trading Calculators
+- **Fibonacci Retracement & Extension** - Calculate support/resistance levels
+- **Position Size Calculator** - Risk-based position sizing
+- **Risk-Reward Ratio** - Trade analysis tools
+- **And 19+ more professional calculators...**
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+### 🤖 AI Market Analysis
+- Multi-market support (Forex, Crypto, Stocks, Commodities)
+- Natural language analysis requests
+- Key level detection with strength indicators
+- Trading scenarios and risk notes
 
-## 🎯 Why This Scaffold?
+### 🌍 Bilingual Support
+- **English** - Full interface translation
+- **العربية** - دعم كامل للغة العربية
+- RTL layout support
 
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
+### 🎨 Beautiful UI
+- Modern glassmorphism design
+- Purple & Gold color scheme
+- Dark/Light theme toggle
+- Mobile-first responsive
+
+---
 
 ## 🚀 Quick Start
 
 ```bash
+# Clone the repository
+git clone https://github.com/alinounou/infinity-algo.git
+cd infinity-algo
+
 # Install dependencies
 bun install
 
-# Start development server
+# Run development server
 bun run dev
 
-# Build for production
-bun run build
-
-# Start production server
-bun start
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
-
-## 🤖 Powered by Z.ai
-
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
-
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
-
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
+---
 
 ## 📁 Project Structure
 
 ```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+batna/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Main SPA
+│   │   ├── layout.tsx        # Root layout
+│   │   ├── globals.css       # Global styles
+│   │   └── api/ai-analyze/   # AI API endpoint
+│   ├── components/
+│   │   ├── Logo.tsx          # Batna logo
+│   │   ├── Navbar.tsx        # Navigation
+│   │   ├── Footer.tsx        # Footer
+│   │   ├── AIAnalysisSection.tsx
+│   │   └── calculators/      # 22 calculators
+│   ├── locales/
+│   │   └── index.ts          # EN/AR translations
+│   ├── lib/
+│   │   └── i18n.ts           # i18n system
+│   ├── config/
+│   │   └── calculators.ts    # Calculator registry
+│   └── store/
+│       └── index.ts          # Zustand store
+├── docs/                     # Enterprise docs
+├── public/                   # Static assets
+└── package.json
 ```
-
-## 🎨 Available Features & Components
-
-This scaffold includes a comprehensive set of modern web development tools:
-
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
-
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
-
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
-
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
-
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
-
-## 🤝 Get Started with Z.ai
-
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+## 🛠 Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| UI Components | shadcn/ui |
+| State | Zustand |
+| Animations | Framer Motion |
+| i18n | Custom (EN/AR) |
+| Deployment | Vercel |
+
+---
+
+## 🎨 Color Palette
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary | `#A855F7` | Purple - Main brand |
+| Secondary | `#F59E0B` | Gold - Accents |
+| Accent | `#EC4899` | Pink - Highlights |
+| Dark | `#0D0517` | Dark background |
+| Bullish | `#10B981` | Green - Positive |
+| Bearish | `#EF4444` | Red - Negative |
+
+---
+
+## 📚 Documentation
+
+- [Data Architecture](./docs/data-architecture.md)
+- [AI Training Pipeline](./docs/ai-training.md)
+- [Product Roadmap](./docs/roadmap.md)
+- [Monetization Strategy](./docs/monetization.md)
+- [Launch Checklist](./docs/launch-checklist.md)
+
+---
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repo to Vercel
+2. Configure environment variables
+3. Deploy!
+
+### Environment Variables
+
+```env
+# Optional - Phase 2
+DATABASE_URL=
+OPENAI_API_KEY=
+NEXTAUTH_SECRET=
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Powered by [Infinity Algo Academy](https://infinityalgoacademy.net/)
+- UI Components by [shadcn/ui](https://ui.shadcn.com/)
+- Icons by [Lucide](https://lucide.dev/)
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the Batna Team**
+
+[🌐 Website](https://batna.trading) | [📧 Contact](mailto:contact@batna.trading) | [🐦 Twitter](https://twitter.com/batna_trading)
+
+</div>

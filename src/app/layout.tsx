@@ -15,9 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Infinity Algo by Jeremy | AI Trading Intelligence Platform",
-  description: "AI Decision Intelligence Platform for Serious Traders. 22+ professional trading calculators, AI-powered market analysis, and expert education from Infinity Algo Academy.",
+  title: "Batna | AI Trading Intelligence Platform | بتنة",
+  description: "AI Decision Intelligence Platform for Serious Traders. 22+ professional trading calculators, AI-powered market analysis. منصة ذكاء التداول للمتداولين الجادين.",
   keywords: [
+    "Batna",
+    "بتنة",
     "trading calculators",
     "Fibonacci calculator",
     "position size calculator",
@@ -26,31 +28,35 @@ export const metadata: Metadata = {
     "forex tools",
     "crypto trading",
     "stock analysis",
-    "Infinity Algo Academy",
     "trading intelligence",
+    "حاسبة التداول",
+    "تحليل السوق",
+    "حاسبة فيبوناتشي",
   ],
-  authors: [{ name: "Jeremy - Infinity Algo" }],
+  authors: [{ name: "Batna Team" }],
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "Infinity Algo by Jeremy | AI Trading Intelligence",
-    description: "AI Decision Intelligence Platform for Serious Traders. 22+ calculators, AI analysis, and expert education.",
-    url: "https://infinityalgoacademy.net/",
-    siteName: "Infinity Algo",
+    title: "Batna | AI Trading Intelligence | بتنة",
+    description: "AI Decision Intelligence Platform for Serious Traders. منصة ذكاء التداول للمتداولين الجادين.",
+    url: "https://batna.trading",
+    siteName: "Batna",
     type: "website",
+    locale: 'en_US',
+    alternateLocale: ['ar_SA'],
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Infinity Algo - AI Trading Intelligence",
+        alt: "Batna - AI Trading Intelligence",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Infinity Algo by Jeremy",
+    title: "Batna | AI Trading Intelligence",
     description: "AI Decision Intelligence Platform for Serious Traders",
     images: ["/og-image.png"],
   },

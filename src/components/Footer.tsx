@@ -3,25 +3,27 @@
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Twitter, Linkedin, Youtube, MessageCircle } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 export function Footer() {
+  const { t, isRTL } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     product: [
-      { label: "Calculators", href: "#calculators" },
-      { label: "AI Analysis", href: "#ai" },
-      { label: "About", href: "#about" },
+      { label: t.nav.calculators, href: "#calculators" },
+      { label: t.nav.ai, href: "#ai" },
+      { label: t.nav.about, href: "#about" },
     ],
     resources: [
-      { label: "Academy", href: "https://infinityalgoacademy.net/", external: true },
+      { label: t.nav.academy, href: "https://infinityalgoacademy.net/", external: true },
       { label: "Documentation", href: "#" },
       { label: "API", href: "#" },
     ],
     legal: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Disclaimer", href: "#" },
+      { label: t.footer.privacy, href: "#" },
+      { label: t.footer.terms, href: "#" },
+      { label: t.footer.disclaimerLink, href: "#" },
     ],
   };
 
@@ -33,7 +35,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative mt-20 border-t border-white/10 bg-infinity-dark/50">
+    <footer className="relative mt-20 border-t border-primary/20 bg-gradient-to-b from-transparent to-primary/5">
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-radial opacity-30 pointer-events-none" />
       
@@ -43,8 +45,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Logo size="md" className="mb-4" />
             <p className="text-muted-foreground text-sm mt-4 max-w-sm">
-              AI Decision Intelligence Platform for Serious Traders. 
-              Powered by Infinity Algo Academy - Your journey to trading excellence starts here.
+              {t.footer.description}
             </p>
             <div className="flex gap-3 mt-6">
               {socialLinks.map((social) => {
@@ -68,7 +69,7 @@ export function Footer() {
 
           {/* Product Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Product</h3>
+            <h3 className="font-semibold text-foreground mb-4">{t.footer.product}</h3>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
@@ -85,7 +86,7 @@ export function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Resources</h3>
+            <h3 className="font-semibold text-foreground mb-4">{t.footer.resources}</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
@@ -105,7 +106,7 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Legal</h3>
+            <h3 className="font-semibold text-foreground mb-4">{t.footer.legal}</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
@@ -122,24 +123,24 @@ export function Footer() {
         </div>
 
         {/* Academy Promo Banner */}
-        <div className="mt-12 p-6 rounded-xl glass-card bg-gradient-to-r from-primary/10 to-infinity-teal/10 border border-primary/20">
+        <div className="mt-12 p-6 rounded-xl glass-card bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h4 className="font-semibold text-foreground">Ready to Master Trading?</h4>
+              <h4 className="font-semibold text-foreground">{t.footer.readyToMaster}</h4>
               <p className="text-sm text-muted-foreground mt-1">
-                Join Infinity Algo Academy for expert courses and mentorship.
+                {t.footer.joinAcademyDesc}
               </p>
             </div>
             <Button
               asChild
-              className="bg-gradient-to-r from-primary to-infinity-teal hover:opacity-90 shrink-0"
+              className="bg-gradient-to-r from-primary to-accent-foreground hover:opacity-90 shrink-0"
             >
               <a
                 href="https://infinityalgoacademy.net/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Join Academy
+                {t.footer.joinAcademy}
                 <ExternalLink className="w-4 h-4 ml-2" />
               </a>
             </Button>
@@ -147,12 +148,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-8 pt-8 border-t border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Infinity Algo by Jeremy. All rights reserved.
+            © {currentYear} {t.footer.copyright}
           </p>
           <p className="text-sm text-muted-foreground">
-            Powered by{" "}
+            {t.footer.poweredBy}{" "}
             <a
               href="https://infinityalgoacademy.net/"
               target="_blank"

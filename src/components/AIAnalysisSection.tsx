@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Brain, Loader2, TrendingUp, TrendingDown, Target, AlertTriangle, Sparkles, ExternalLink } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface AIResult {
   bias: "bullish" | "bearish" | "neutral";
@@ -25,6 +26,7 @@ interface AIResult {
 }
 
 export function AIAnalysisSection() {
+  const { t } = useTranslation();
   const [market, setMarket] = useState("forex");
   const [symbol, setSymbol] = useState("XAUUSD");
   const [timeframe, setTimeframe] = useState("H1");
@@ -72,6 +74,17 @@ export function AIAnalysisSection() {
     }
   };
 
+  const getLevelTypeLabel = (type: string) => {
+    switch (type) {
+      case "resistance":
+        return t.ai.resistance;
+      case "support":
+        return t.ai.support;
+      default:
+        return t.ai.pivot;
+    }
+  };
+
   return (
     <section id="ai" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -79,29 +92,28 @@ export function AIAnalysisSection() {
         <div className="text-center mb-12">
           <Badge variant="outline" className="mb-4 bg-purple-500/20 text-purple-400 border-purple-500/30">
             <Sparkles className="w-4 h-4 mr-2" />
-            AI-Powered
+            {t.ai.badge}
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            AI Market Analysis
+            {t.ai.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Get intelligent market insights powered by advanced AI. Analyze any symbol,
-            timeframe, and scenario with natural language prompts.
+            {t.ai.description}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Input Panel */}
-          <Card className="glass-card border-white/10">
+          <Card className="glass-card border-primary/20">
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-purple-500/20">
-                  <Brain className="w-6 h-6 text-purple-400" />
+                <div className="p-2 rounded-lg bg-primary/20">
+                  <Brain className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <CardTitle>Analysis Parameters</CardTitle>
+                  <CardTitle>{t.ai.market} & {t.ai.symbol}</CardTitle>
                   <CardDescription>
-                    Configure your market analysis request
+                    {t.ai.description}
                   </CardDescription>
                 </div>
               </div>
@@ -110,9 +122,9 @@ export function AIAnalysisSection() {
               {/* Market & Symbol Row */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Market</Label>
+                  <Label>{t.ai.market}</Label>
                   <Select value={market} onValueChange={setMarket}>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-white/5 border-primary/20">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -124,12 +136,12 @@ export function AIAnalysisSection() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Symbol</Label>
+                  <Label>{t.ai.symbol}</Label>
                   <Input
                     value={symbol}
                     onChange={(e) => setSymbol(e.target.value.toUpperCase())}
                     placeholder="e.g., XAUUSD"
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-primary/20"
                   />
                 </div>
               </div>
@@ -137,9 +149,9 @@ export function AIAnalysisSection() {
               {/* Timeframe & Levels Row */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label>Timeframe</Label>
+                  <Label>{t.ai.timeframe}</Label>
                   <Select value={timeframe} onValueChange={setTimeframe}>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-white/5 border-primary/20">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -152,35 +164,35 @@ export function AIAnalysisSection() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>High Level</Label>
+                  <Label>{t.ai.highLevel}</Label>
                   <Input
                     type="number"
                     value={highLevel}
                     onChange={(e) => setHighLevel(e.target.value)}
                     placeholder="2500"
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-primary/20"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Low Level</Label>
+                  <Label>{t.ai.lowLevel}</Label>
                   <Input
                     type="number"
                     value={lowLevel}
                     onChange={(e) => setLowLevel(e.target.value)}
                     placeholder="2450"
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-primary/20"
                   />
                 </div>
               </div>
 
               {/* Prompt */}
               <div className="space-y-2">
-                <Label>Your Question</Label>
+                <Label>{t.ai.yourQuestion}</Label>
                 <Textarea
                   value={userPrompt}
                   onChange={(e) => setUserPrompt(e.target.value)}
-                  placeholder="e.g., What's the best entry point for a long position? Should I wait for a pullback?"
-                  className="bg-white/5 border-white/10 min-h-[100px] resize-none"
+                  placeholder={t.ai.questionPlaceholder}
+                  className="bg-white/5 border-primary/20 min-h-[100px] resize-none"
                 />
               </div>
 
@@ -188,17 +200,17 @@ export function AIAnalysisSection() {
               <Button
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-purple-500 to-primary hover:opacity-90"
+                className="w-full bg-gradient-to-r from-primary to-accent-foreground hover:opacity-90"
               >
                 {isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analyzing...
+                    {t.ai.analyzing}
                   </>
                 ) : (
                   <>
                     <Brain className="w-4 h-4 mr-2" />
-                    Analyze Market
+                    {t.ai.analyze}
                   </>
                 )}
               </Button>
@@ -206,10 +218,10 @@ export function AIAnalysisSection() {
           </Card>
 
           {/* Results Panel */}
-          <Card className="glass-card border-white/10">
+          <Card className="glass-card border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                Analysis Results
+                {t.ai.results}
                 {result && (
                   <Badge variant="outline" className={getBiasColor(result.bias)}>
                     {result.bias === "bullish" ? (
@@ -232,7 +244,7 @@ export function AIAnalysisSection() {
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <Brain className="w-16 h-16 text-muted-foreground/30 mb-4" />
                   <p className="text-muted-foreground">
-                    Configure your analysis and click "Analyze Market"
+                    Configure your analysis and click "{t.ai.analyze}"
                   </p>
                 </div>
               ) : (
@@ -241,13 +253,13 @@ export function AIAnalysisSection() {
                   <div>
                     <h4 className="font-semibold mb-3 flex items-center gap-2">
                       <Target className="w-4 h-4 text-primary" />
-                      Key Levels
+                      {t.ai.keyLevels}
                     </h4>
                     <div className="space-y-2">
                       {result.keyLevels.map((level, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10"
+                          className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-primary/20"
                         >
                           <div className="flex items-center gap-3">
                             <Badge
@@ -260,7 +272,7 @@ export function AIAnalysisSection() {
                                   : "bg-yellow-500/20 text-yellow-400"
                               }
                             >
-                              {level.type}
+                              {getLevelTypeLabel(level.type)}
                             </Badge>
                             <span className="font-mono font-semibold">
                               {level.price.toFixed(2)}
@@ -269,7 +281,7 @@ export function AIAnalysisSection() {
                           <div className="flex items-center gap-2">
                             <div className="w-20 h-2 level-bar-bg">
                               <div
-                                className="level-bar-fill bg-gradient-to-r from-primary to-infinity-teal"
+                                className="level-bar-fill bg-gradient-to-r from-primary to-accent-foreground"
                                 style={{ width: `${level.strength}%` }}
                               />
                             </div>
@@ -284,7 +296,7 @@ export function AIAnalysisSection() {
 
                   {/* Scenarios */}
                   <div>
-                    <h4 className="font-semibold mb-3">Trading Scenarios</h4>
+                    <h4 className="font-semibold mb-3">{t.ai.scenarios}</h4>
                     <ul className="space-y-2">
                       {result.scenarios.map((scenario, idx) => (
                         <li
@@ -303,7 +315,7 @@ export function AIAnalysisSection() {
                     <div className="flex items-start gap-3">
                       <AlertTriangle className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
                       <div>
-                        <h4 className="font-semibold text-yellow-500 mb-1">Risk Note</h4>
+                        <h4 className="font-semibold text-yellow-500 mb-1">{t.ai.riskNote}</h4>
                         <p className="text-sm text-muted-foreground">{result.riskNote}</p>
                       </div>
                     </div>
@@ -315,11 +327,9 @@ export function AIAnalysisSection() {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10 text-center">
+        <div className="mt-8 p-4 rounded-lg bg-white/5 border border-primary/20 text-center">
           <p className="text-xs text-muted-foreground">
-            <strong>Disclaimer:</strong> This AI analysis is for educational purposes only and should not be
-            considered financial advice. Always do your own research and consult with a qualified financial
-            advisor before making trading decisions. Past performance does not guarantee future results.
+            {t.ai.disclaimer}
           </p>
         </div>
       </div>

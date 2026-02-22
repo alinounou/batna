@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calculator, AlertTriangle, CheckCircle2, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 export function PositionSizeCalculator() {
+  const { t } = useTranslation();
   const [accountSize, setAccountSize] = useState<string>("10000");
   const [riskPercent, setRiskPercent] = useState<string>("2");
   const [stopLossPips, setStopLossPips] = useState<string>("50");
@@ -33,25 +35,25 @@ export function PositionSizeCalculator() {
   }, [accountSize, riskPercent, stopLossPips, pipValue]);
 
   const getRiskLevel = (risk: number) => {
-    if (risk <= 1) return { label: "Conservative", color: "text-green-500", bg: "bg-green-500/20" };
-    if (risk <= 2) return { label: "Moderate", color: "text-yellow-500", bg: "bg-yellow-500/20" };
-    if (risk <= 3) return { label: "Aggressive", color: "text-orange-500", bg: "bg-orange-500/20" };
-    return { label: "High Risk", color: "text-red-500", bg: "bg-red-500/20" };
+    if (risk <= 1) return { label: t.positionSize.conservative, color: "text-green-500", bg: "bg-green-500/20" };
+    if (risk <= 2) return { label: t.positionSize.moderate, color: "text-yellow-500", bg: "bg-yellow-500/20" };
+    if (risk <= 3) return { label: t.positionSize.aggressive, color: "text-orange-500", bg: "bg-orange-500/20" };
+    return { label: t.positionSize.highRisk, color: "text-red-500", bg: "bg-red-500/20" };
   };
 
   const riskLevel = getRiskLevel(parseFloat(riskPercent) || 0);
 
   return (
-    <Card className="glass-card border-white/10">
+    <Card className="glass-card border-primary/20">
       <CardHeader>
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary/20">
             <Calculator className="w-6 h-6 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-xl">Position Size Calculator</CardTitle>
+            <CardTitle className="text-xl">{t.positionSize.title}</CardTitle>
             <CardDescription>
-              Calculate optimal position size based on your risk parameters
+              {t.positionSize.description}
             </CardDescription>
           </div>
         </div>
@@ -60,18 +62,18 @@ export function PositionSizeCalculator() {
         {/* Input Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="accountSize">Account Size ($)</Label>
+            <Label htmlFor="accountSize">{t.positionSize.accountSize}</Label>
             <Input
               id="accountSize"
               type="number"
               value={accountSize}
               onChange={(e) => setAccountSize(e.target.value)}
               placeholder="e.g., 10000"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="riskPercent">Risk per Trade (%)</Label>
+            <Label htmlFor="riskPercent">{t.positionSize.riskPerTrade}</Label>
             <Input
               id="riskPercent"
               type="number"
@@ -79,22 +81,22 @@ export function PositionSizeCalculator() {
               value={riskPercent}
               onChange={(e) => setRiskPercent(e.target.value)}
               placeholder="e.g., 2"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="stopLossPips">Stop Loss (Pips/Points)</Label>
+            <Label htmlFor="stopLossPips">{t.positionSize.stopLossPips}</Label>
             <Input
               id="stopLossPips"
               type="number"
               value={stopLossPips}
               onChange={(e) => setStopLossPips(e.target.value)}
               placeholder="e.g., 50"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="pipValue">Pip Value ($)</Label>
+            <Label htmlFor="pipValue">{t.positionSize.pipValue}</Label>
             <Input
               id="pipValue"
               type="number"
@@ -102,20 +104,20 @@ export function PositionSizeCalculator() {
               value={pipValue}
               onChange={(e) => setPipValue(e.target.value)}
               placeholder="e.g., 10"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
         </div>
 
         {/* Risk Level Indicator */}
-        <div className={`flex items-center gap-3 p-4 rounded-lg ${riskLevel.bg} border border-white/10`}>
+        <div className={`flex items-center gap-3 p-4 rounded-lg ${riskLevel.bg} border border-primary/20`}>
           <AlertTriangle className={`w-5 h-5 ${riskLevel.color}`} />
           <div>
-            <p className="font-medium">Risk Level: {riskLevel.label}</p>
+            <p className="font-medium">{t.positionSize.riskLevel}: {riskLevel.label}</p>
             <p className="text-sm text-muted-foreground">
               {parseFloat(riskPercent) <= 2
-                ? "Recommended for consistent long-term growth"
-                : "Higher risk may lead to significant drawdowns"}
+                ? t.positionSize.recommended
+                : t.positionSize.higherRisk}
             </p>
           </div>
         </div>
@@ -123,37 +125,37 @@ export function PositionSizeCalculator() {
         {/* Results */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Position Size Card */}
-          <div className="p-6 rounded-xl bg-gradient-to-br from-primary/20 to-infinity-teal/20 border border-primary/30">
+          <div className="p-6 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle2 className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">Position Size</span>
+              <span className="text-sm text-muted-foreground">{t.positionSize.positionSize}</span>
             </div>
             <p className="text-3xl font-bold text-foreground">
               {result.positionSize.toFixed(2)}
             </p>
-            <p className="text-sm text-muted-foreground mt-1">lots/contracts</p>
+            <p className="text-sm text-muted-foreground mt-1">{t.positionSize.lotsContracts}</p>
           </div>
 
           {/* Risk Amount Card */}
-          <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+          <div className="p-6 rounded-xl bg-white/5 border border-primary/20">
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="outline" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
                 Risk
               </Badge>
-              <span className="text-sm text-muted-foreground">Dollar Risk</span>
+              <span className="text-sm text-muted-foreground">{t.positionSize.dollarRisk}</span>
             </div>
             <p className="text-3xl font-bold text-foreground">
               ${result.riskAmount.toFixed(2)}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              {riskPercent}% of ${parseFloat(accountSize).toLocaleString()}
+              {riskPercent}% {t.positionSize.ofAccount} (${parseFloat(accountSize).toLocaleString()})
             </p>
           </div>
         </div>
 
         {/* Formula Explanation */}
-        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-          <h4 className="font-semibold mb-2 text-sm">Formula</h4>
+        <div className="p-4 rounded-lg bg-white/5 border border-primary/20">
+          <h4 className="font-semibold mb-2 text-sm">{t.calculators.formula}</h4>
           <code className="text-xs text-muted-foreground block">
             Position Size = (Account × Risk%) ÷ (Stop Loss Pips × Pip Value)
           </code>
@@ -172,13 +174,13 @@ export function PositionSizeCalculator() {
               setStopLossPips("50");
               setPipValue("10");
             }}
-            className="gap-2"
+            className="gap-2 border-primary/30"
           >
             <RefreshCw className="w-4 h-4" />
-            Reset
+            {t.calculators.reset}
           </Button>
-          <Button className="gap-2 bg-gradient-to-r from-primary to-infinity-teal">
-            Save to Journal
+          <Button className="gap-2 bg-gradient-to-r from-primary to-accent-foreground">
+            {t.positionSize.saveToJournal}
           </Button>
         </div>
       </CardContent>

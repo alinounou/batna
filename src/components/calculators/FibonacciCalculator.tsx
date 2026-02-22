@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Calculator, TrendingUp, TrendingDown, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface FibLevel {
   level: number;
@@ -23,6 +24,7 @@ interface FibLevel {
 }
 
 export function FibonacciCalculator() {
+  const { t } = useTranslation();
   const [swingHigh, setSwingHigh] = useState<string>("2500");
   const [swingLow, setSwingLow] = useState<string>("2400");
   const [trendDirection, setTrendDirection] = useState<"up" | "down">("up");
@@ -63,16 +65,16 @@ export function FibonacciCalculator() {
   const diff = high - low;
 
   return (
-    <Card className="glass-card border-white/10">
+    <Card className="glass-card border-primary/20">
       <CardHeader>
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary/20">
             <Calculator className="w-6 h-6 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-xl">Fibonacci Retracement & Extension</CardTitle>
+            <CardTitle className="text-xl">{t.fib.title}</CardTitle>
             <CardDescription>
-              Calculate Fibonacci levels for support, resistance, and targets
+              {t.fib.description}
             </CardDescription>
           </div>
         </div>
@@ -81,47 +83,47 @@ export function FibonacciCalculator() {
         {/* Input Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="swingHigh">Swing High</Label>
+            <Label htmlFor="swingHigh">{t.fib.swingHigh}</Label>
             <Input
               id="swingHigh"
               type="number"
               value={swingHigh}
               onChange={(e) => setSwingHigh(e.target.value)}
               placeholder="e.g., 2500"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="swingLow">Swing Low</Label>
+            <Label htmlFor="swingLow">{t.fib.swingLow}</Label>
             <Input
               id="swingLow"
               type="number"
               value={swingLow}
               onChange={(e) => setSwingLow(e.target.value)}
               placeholder="e.g., 2400"
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="trend">Trend Direction</Label>
+            <Label htmlFor="trend">{t.fib.trendDirection}</Label>
             <Select
               value={trendDirection}
               onValueChange={(v) => setTrendDirection(v as "up" | "down")}
             >
-              <SelectTrigger className="bg-white/5 border-white/10">
+              <SelectTrigger className="bg-white/5 border-primary/20">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="up">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-500" />
-                    Uptrend
+                    {t.fib.uptrend}
                   </div>
                 </SelectItem>
                 <SelectItem value="down">
                   <div className="flex items-center gap-2">
                     <TrendingDown className="w-4 h-4 text-red-500" />
-                    Downtrend
+                    {t.fib.downtrend}
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -133,26 +135,26 @@ export function FibonacciCalculator() {
         <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/10 border border-primary/20">
           <TrendingUp className="w-5 h-5 text-primary shrink-0" />
           <p className="text-sm text-muted-foreground">
-            <span className="text-foreground font-medium">Swing Range:</span>{" "}
+            <span className="text-foreground font-medium">{t.fib.swingRange}:</span>{" "}
             {diff.toFixed(2)} points |{" "}
-            <span className="text-foreground font-medium">Direction:</span>{" "}
-            {trendDirection === "up" ? "Uptrend (Buy Dip)" : "Downtrend (Sell Rally)"}
+            <span className="text-foreground font-medium">{t.fib.direction}:</span>{" "}
+            {trendDirection === "up" ? t.fib.buyDip : t.fib.sellRally}
           </p>
         </div>
 
         {/* Retracement Levels */}
         <div className="space-y-3">
           <h4 className="font-semibold flex items-center gap-2">
-            <Badge variant="outline" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
-              Retracements
+            <Badge variant="outline" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+              {t.fib.retracements}
             </Badge>
-            Key support/resistance zones
+            {t.fib.retracementsDesc}
           </h4>
           <div className="grid gap-2">
             {calculatedLevels.retracements.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-primary/20 hover:bg-white/10 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className="w-16 text-sm font-mono text-primary">
@@ -160,7 +162,7 @@ export function FibonacciCalculator() {
                   </span>
                   <div className="w-32 h-2 level-bar-bg">
                     <div
-                      className="level-bar-fill bg-gradient-to-r from-primary to-infinity-teal"
+                      className="level-bar-fill bg-gradient-to-r from-primary to-accent-foreground"
                       style={{ width: `${item.level * 100}%` }}
                     />
                   </div>
@@ -177,23 +179,23 @@ export function FibonacciCalculator() {
         <div className="space-y-3">
           <h4 className="font-semibold flex items-center gap-2">
             <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
-              Extensions
+              {t.fib.extensions}
             </Badge>
-            Profit target zones
+            {t.fib.extensionsDesc}
           </h4>
           <div className="grid gap-2">
             {calculatedLevels.extensions.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-primary/20 hover:bg-white/10 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-16 text-sm font-mono text-infinity-teal">
+                  <span className="w-16 text-sm font-mono text-green-400">
                     {item.label}
                   </span>
                   <div className="w-32 h-2 level-bar-bg">
                     <div
-                      className="level-bar-fill bg-gradient-to-r from-infinity-teal to-green-400"
+                      className="level-bar-fill bg-gradient-to-r from-green-400 to-emerald-400"
                       style={{ width: `${Math.min((item.level / 3) * 100, 100)}%` }}
                     />
                   </div>
@@ -215,13 +217,13 @@ export function FibonacciCalculator() {
               setSwingLow("2400");
               setTrendDirection("up");
             }}
-            className="gap-2"
+            className="gap-2 border-primary/30"
           >
             <RefreshCw className="w-4 h-4" />
-            Reset
+            {t.calculators.reset}
           </Button>
-          <Button className="gap-2 bg-gradient-to-r from-primary to-infinity-teal">
-            Add to Chart
+          <Button className="gap-2 bg-gradient-to-r from-primary to-accent-foreground">
+            {t.fib.addToChart}
           </Button>
         </div>
       </CardContent>

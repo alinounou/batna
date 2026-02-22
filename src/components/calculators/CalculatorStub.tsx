@@ -8,12 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CalculatorConfig } from "@/config/calculators";
 import { Calculator, RefreshCw, TrendingUp } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface CalculatorStubProps {
   config: CalculatorConfig;
 }
 
 export function CalculatorStub({ config }: CalculatorStubProps) {
+  const { t } = useTranslation();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
@@ -61,7 +63,7 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
   const labels = getInputLabels();
 
   return (
-    <Card className="glass-card border-white/10">
+    <Card className="glass-card border-primary/20">
       <CardHeader>
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary/20">
@@ -84,7 +86,7 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
               value={input1}
               onChange={(e) => setInput1(e.target.value)}
               placeholder={`Enter ${labels[0].toLowerCase()}`}
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
@@ -95,7 +97,7 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
               value={input2}
               onChange={(e) => setInput2(e.target.value)}
               placeholder={`Enter ${labels[1].toLowerCase()}`}
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
           <div className="space-y-2">
@@ -106,7 +108,7 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
               value={input3}
               onChange={(e) => setInput3(e.target.value)}
               placeholder={`Enter ${labels[2].toLowerCase()}`}
-              className="bg-white/5 border-white/10"
+              className="bg-white/5 border-primary/20"
             />
           </div>
         </div>
@@ -114,17 +116,17 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
         {/* Calculate Button */}
         <Button
           onClick={handleCalculate}
-          className="w-full bg-gradient-to-r from-primary to-infinity-teal"
+          className="w-full bg-gradient-to-r from-primary to-accent-foreground"
         >
-          Calculate
+          {t.calculators.calculate}
         </Button>
 
         {/* Results */}
         {result && (
-          <div className="p-6 rounded-xl bg-gradient-to-br from-primary/20 to-infinity-teal/20 border border-primary/30">
+          <div className="p-6 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">Result</span>
+              <span className="text-sm text-muted-foreground">{t.calculators.result}</span>
             </div>
             <p className="text-4xl font-bold text-foreground">{result}</p>
             <p className="text-sm text-muted-foreground mt-2">
@@ -134,9 +136,9 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
         )}
 
         {/* Info */}
-        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+        <div className="p-4 rounded-lg bg-white/5 border border-primary/20">
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="outline" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
+            <Badge variant="outline" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
               Pro Tip
             </Badge>
           </div>
@@ -155,10 +157,10 @@ export function CalculatorStub({ config }: CalculatorStubProps) {
             setInput3("");
             setResult(null);
           }}
-          className="gap-2"
+          className="gap-2 border-primary/30"
         >
           <RefreshCw className="w-4 h-4" />
-          Reset
+          {t.calculators.reset}
         </Button>
       </CardContent>
     </Card>

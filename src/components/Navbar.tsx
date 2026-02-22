@@ -2,26 +2,32 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, ExternalLink, Calculator, Brain, Info, Home } from "lucide-react";
+import { Menu, X, Sun, Moon, ExternalLink, Calculator, Brain, Info, Home, Globe } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { useTranslation } from "@/lib/i18n";
 
 interface NavbarProps {
   activeSection: string;
   onNavigate: (section: string) => void;
 }
 
-const navItems = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "calculators", label: "Calculators", icon: Calculator },
-  { id: "ai", label: "AI Analysis", icon: Brain },
-  { id: "about", label: "About", icon: Info },
-];
-
 export function Navbar({ activeSection, onNavigate }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { t, language, setLanguage, isRTL } = useTranslation();
+
+  const navItems = [
+    { id: "home", label: t.nav.home, icon: Home },
+    { id: "calculators", label: t.nav.calculators, icon: Calculator },
+    { id: "ai", label: t.nav.ai, icon: Brain },
+    { id: "about", label: t.nav.about, icon: Info },
+  ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ar' : 'en');
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
@@ -60,17 +66,29 @@ export function Navbar({ activeSection, onNavigate }: NavbarProps) {
 
           {/* Right side buttons */}
           <div className="flex items-center gap-2">
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLanguage}
+              className="rounded-full"
+              title={language === 'en' ? 'العربية' : 'English'}
+            >
+              <Globe className="h-5 w-5" />
+              <span className="sr-only text-xs ml-1">{language === 'en' ? 'AR' : 'EN'}</span>
+            </Button>
+
             {/* Academy Button */}
             <Button
               asChild
-              className="hidden sm:flex bg-gradient-to-r from-primary to-infinity-teal hover:opacity-90 transition-opacity"
+              className="hidden sm:flex bg-gradient-to-r from-primary to-accent-foreground hover:opacity-90 transition-opacity"
             >
               <a
                 href="https://infinityalgoacademy.net/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Academy
+                {t.nav.academy}
                 <ExternalLink className="w-4 h-4 ml-2" />
               </a>
             </Button>
@@ -132,14 +150,14 @@ export function Navbar({ activeSection, onNavigate }: NavbarProps) {
               })}
               <Button
                 asChild
-                className="w-full mt-4 bg-gradient-to-r from-primary to-infinity-teal"
+                className="w-full mt-4 bg-gradient-to-r from-primary to-accent-foreground"
               >
                 <a
                   href="https://infinityalgoacademy.net/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Visit Academy
+                  {t.nav.academy}
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </a>
               </Button>
